@@ -1,34 +1,23 @@
 package com.example.additem;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-import java.sql.DriverPropertyInfo;
-import java.util.List;
 
-import kotlinx.coroutines.MainCoroutineDispatcher;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
     ArrayAdapter stadiumArrayAdapter;
     ListView listAll;
 
-
+   // RecyclerView imgList;
     Button AddStadium,ViewAll,delete;
 
     DataBaseHelper dataBaseHelper;
@@ -57,6 +46,9 @@ catch(Exception e){
        ViewAll=findViewById(R.id.ViewAll);
         listAll=findViewById(R.id.ListView);
         delete=findViewById(R.id.Delete);
+        //imgList= findViewById(R.id.imagesRV);
+
+
         AddStadium.setOnClickListener( new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
@@ -96,10 +88,10 @@ catch(Exception e){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ItemModel clickedItem= (ItemModel) parent.getItemAtPosition(position);
                 dataBaseHelper=new DataBaseHelper(MainActivity.this);
+
                 delete.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         dataBaseHelper.deleteOne(clickedItem);
                         ShowStadiumsOnListView(dataBaseHelper);
                         Toast.makeText(MainActivity.this,"Deleted "+ clickedItem.getName().toString() + " Stadium", Toast.LENGTH_SHORT).show();
@@ -110,8 +102,41 @@ catch(Exception e){
             }//end ontiemclick
         }); //Added By Reema
 
+       /* //RecyclerView recyclerView = findViewById(R.id.recycler);
+        Context context = null;
+        imgList.addOnItemTouchListener(
+                new RecyclerItemClickListener(context ,imgList ,new RecyclerItemClickListener.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                        ModelClass clickedImage = (ModelClass) parent.getItemAtPosition(position);
+                        DataBaseHandler dataBaseHandler =new DataBaseHandler(MainActivity.this);
+                        delete.setOnClickListener( new View.OnClickListener() {
+                            public void onClick(View v) {
+                                dataBaseHandler.deleteImage(clickedImage);
+                                Toast.makeText(MainActivity.this," Deleted "+ clickedImage.getImageName().toString() + " Stadium image", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+                    }
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
 
 
+
+
+                })
+
+
+                );*/
 
 
 
@@ -120,6 +145,9 @@ catch(Exception e){
 
 
     }
+
+
+
     private void ShowStadiumsOnListView(DataBaseHelper dataBaseHelper) {
         stadiumArrayAdapter  = new ArrayAdapter<ItemModel>(MainActivity.this , android.R.layout.simple_list_item_1, dataBaseHelper.getEveryone());
         listAll.setAdapter(stadiumArrayAdapter);
