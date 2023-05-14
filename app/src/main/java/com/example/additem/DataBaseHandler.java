@@ -103,7 +103,7 @@ private static String createTableQuery="CREATE TABLE IMAGEINFO (imageName TEXT" 
        }
     }
 
-    public boolean deleteImage(ModelClass model){
+   /* public boolean deleteImage(ModelClass model){
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = " DELETE FROM IMAGEINFO " + " WHERE imageName " + " = " + model.getImageName() ;
         Cursor cursor = db.rawQuery(queryString, null);
@@ -115,7 +115,7 @@ private static String createTableQuery="CREATE TABLE IMAGEINFO (imageName TEXT" 
             return false;
         }
 
-    }//end deleteImage
+    }//end deleteImage */
 
 
 
